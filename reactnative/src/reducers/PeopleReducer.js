@@ -9,7 +9,7 @@ const initialState = {
   company: "",
   project: "",
   notes: "",
-  country: "", // ✅ NEW FIELD
+  country: "",
   _id: "",
   toUpdate: false,
 };
@@ -52,7 +52,7 @@ export default (state = initialState, action) => {
         company: "",
         project: "",
         notes: "",
-        country: "", // ✅ RESET FIELD
+        country: "",
       };
 
     case "ADD_PERSON":
@@ -72,7 +72,7 @@ export default (state = initialState, action) => {
         company: action.payload.company,
         project: action.payload.project,
         notes: action.payload.notes,
-        country: action.payload.country, // ✅ POPULATE FIELD
+        country: action.payload.country,
         _id: action.payload._id,
       };
 
@@ -88,7 +88,7 @@ export default (state = initialState, action) => {
         company: "",
         project: "",
         notes: "",
-        country: "", // ✅ RESET FIELD
+        country: "",
         _id: "",
       };
 

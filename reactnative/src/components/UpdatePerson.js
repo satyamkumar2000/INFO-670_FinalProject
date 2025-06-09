@@ -1,6 +1,5 @@
-// Updated UpdatePerson.js with country field and UI
 import React from "react";
-import { View, StyleSheet, ScrollView, Text } from "react-native";
+import { View, StyleSheet, ScrollView, Text, Alert } from "react-native";
 import { Button, TextInput } from "@react-native-material/core";
 import { connect } from "react-redux";
 import * as actions from "../actions";
@@ -35,6 +34,18 @@ const styles = StyleSheet.create({
   },
 });
 
+// Email format validation
+const validateEmail = (email) => {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+};
+
+// Phone format validation
+const validatePhone = (phone) => {
+  const re = /^[0-9]{10}$/;
+  return re.test(phone);
+};
+
 const UpdatePerson = ({
   firstName,
   lastName,
@@ -49,55 +60,76 @@ const UpdatePerson = ({
   saveContact,
 }) => {
   const onUpdatePress = () => {
-    saveContact({
-      firstName,
-      lastName,
-      phone,
-      email,
-      company,
-      project,
-      notes,
-      country,
-      _id,
-    });
+    const fields = {
+      firstName: firstName?.trim() || "",
+      lastName: lastName?.trim() || "",
+      phone: phone?.trim() || "",
+      email: email?.trim() || "",
+      company: company?.trim() || "",
+      project: project?.trim() || "",
+      notes: notes?.trim() || "",
+      country: country?.trim() || "",
+    };
+
+    for (let key in fields) {
+      if (key !== "notes" && fields[key] === "") {
+        Alert.alert("Missing Field", `Please enter ${key}`);
+        return;
+      }
+    }
+
+    if (!validateEmail(fields.email)) {
+      Alert.alert("Invalid Email", "Please enter a valid email address.");
+      return;
+    }
+
+    if (!validatePhone(fields.phone)) {
+      Alert.alert("Invalid Phone", "Phone number must be 10 digits.");
+      return;
+    }
+
+    saveContact({ ...fields, _id });
   };
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.form}>
         <Text style={styles.heading}>Update Contact</Text>
+
         <TextInput
-          label="First name"
+          label="First name *"
           style={styles.fieldStyles}
           value={firstName}
           onChangeText={(value) => formUpdate({ prop: "firstName", value })}
         />
         <TextInput
-          label="Last name"
+          label="Last name *"
           style={styles.fieldStyles}
           value={lastName}
           onChangeText={(value) => formUpdate({ prop: "lastName", value })}
         />
         <TextInput
-          label="Phone number"
+          label="Phone number *"
           style={styles.fieldStyles}
+          keyboardType="phone-pad"
           value={phone}
           onChangeText={(value) => formUpdate({ prop: "phone", value })}
         />
         <TextInput
-          label="Email"
+          label="Email *"
           style={styles.fieldStyles}
+          keyboardType="email-address"
           value={email}
           onChangeText={(value) => formUpdate({ prop: "email", value })}
         />
         <TextInput
-          label="Company"
+          label="Company *"
           style={styles.fieldStyles}
           value={company}
           onChangeText={(value) => formUpdate({ prop: "company", value })}
         />
         <TextInput
-          label="Project"
+          label="Project *"
           style={styles.fieldStyles}
           value={project}
           onChangeText={(value) => formUpdate({ prop: "project", value })}
@@ -109,7 +141,7 @@ const UpdatePerson = ({
           onChangeText={(value) => formUpdate({ prop: "notes", value })}
         />
         <TextInput
-          label="Country"
+          label="Country *"
           style={styles.fieldStyles}
           value={country}
           onChangeText={(value) => formUpdate({ prop: "country", value })}

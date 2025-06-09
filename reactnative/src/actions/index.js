@@ -37,7 +37,7 @@ export const createNewContact = ({
   country,
 }) => {
   return (dispatch) => {
-    fetch("http://192.168.1.38:3000/contact", {
+    fetch("http://10.250.46.11:3000/contact", {
       method: "POST",
       body: JSON.stringify({
         firstName,
@@ -76,7 +76,7 @@ export const saveContact = ({
   _id,
 }) => {
   return (dispatch) => {
-    fetch(`http://192.168.1.38:3000/contact/${_id}`, {
+    fetch(`http://10.250.46.11:3000/contact/${_id}`, {
       method: "PUT",
       body: JSON.stringify({
         firstName,
@@ -105,7 +105,7 @@ export const saveContact = ({
 
 export const deleteContact = (id) => {
   return (dispatch) => {
-    fetch(`http://192.168.1.38:3000/contact/${id}`, { method: "DELETE" })
+    fetch(`http://10.250.46.11:3000/contact/${id}`, { method: "DELETE" })
       .then(() => {
         dispatch({ type: "DELETE_CONTACT" });
       })
@@ -118,7 +118,7 @@ export const deleteContact = (id) => {
 
 export const loadInitialContacts = () => {
   return (dispatch) => {
-    fetch("http://192.168.1.38:3000/contact")
+    fetch("http://10.250.46.11:3000/contact")
       .then((response) => {
         return response.json();
       })
