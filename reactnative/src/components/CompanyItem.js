@@ -1,57 +1,301 @@
-import React from 'react';
-import { View, StyleSheet, Image, Text } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import React from "react";
+import { View, StyleSheet, Image, Text } from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
+
+// Map country names to ISO codes (expand as needed)
+const countryNameToCode = {
+  Afghanistan: "af",
+  Albania: "al",
+  Algeria: "dz",
+  Andorra: "ad",
+  Angola: "ao",
+  "Antigua and Barbuda": "ag",
+  Argentina: "ar",
+  Armenia: "am",
+  Australia: "au",
+  Austria: "at",
+  Azerbaijan: "az",
+  Bahamas: "bs",
+  Bahrain: "bh",
+  Bangladesh: "bd",
+  Barbados: "bb",
+  Belarus: "by",
+  Belgium: "be",
+  Belize: "bz",
+  Benin: "bj",
+  Bhutan: "bt",
+  Bolivia: "bo",
+  "Bosnia and Herzegovina": "ba",
+  Botswana: "bw",
+  Brazil: "br",
+  Brunei: "bn",
+  Bulgaria: "bg",
+  "Burkina Faso": "bf",
+  Burundi: "bi",
+  "Cabo Verde": "cv",
+  Cambodia: "kh",
+  Cameroon: "cm",
+  Canada: "ca",
+  "Central African Republic": "cf",
+  Chad: "td",
+  Chile: "cl",
+  China: "cn",
+  Colombia: "co",
+  Comoros: "km",
+  Congo: "cg",
+  "Costa Rica": "cr",
+  Croatia: "hr",
+  Cuba: "cu",
+  Cyprus: "cy",
+  "Czech Republic": "cz",
+  Denmark: "dk",
+  Djibouti: "dj",
+  Dominica: "dm",
+  "Dominican Republic": "do",
+  Ecuador: "ec",
+  Egypt: "eg",
+  "El Salvador": "sv",
+  "Equatorial Guinea": "gq",
+  Eritrea: "er",
+  Estonia: "ee",
+  Eswatini: "sz",
+  Ethiopia: "et",
+  Fiji: "fj",
+  Finland: "fi",
+  France: "fr",
+  Gabon: "ga",
+  Gambia: "gm",
+  Georgia: "ge",
+  Germany: "de",
+  Ghana: "gh",
+  Greece: "gr",
+  Grenada: "gd",
+  Guatemala: "gt",
+  Guinea: "gn",
+  "Guinea-Bissau": "gw",
+  Guyana: "gy",
+  Haiti: "ht",
+  Honduras: "hn",
+  Hungary: "hu",
+  Iceland: "is",
+  India: "in",
+  Indonesia: "id",
+  Iran: "ir",
+  Iraq: "iq",
+  Ireland: "ie",
+  Israel: "il",
+  Italy: "it",
+  Jamaica: "jm",
+  Japan: "jp",
+  Jordan: "jo",
+  Kazakhstan: "kz",
+  Kenya: "ke",
+  Kiribati: "ki",
+  Kuwait: "kw",
+  Kyrgyzstan: "kg",
+  Laos: "la",
+  Latvia: "lv",
+  Lebanon: "lb",
+  Lesotho: "ls",
+  Liberia: "lr",
+  Libya: "ly",
+  Liechtenstein: "li",
+  Lithuania: "lt",
+  Luxembourg: "lu",
+  Madagascar: "mg",
+  Malawi: "mw",
+  Malaysia: "my",
+  Maldives: "mv",
+  Mali: "ml",
+  Malta: "mt",
+  "Marshall Islands": "mh",
+  Mauritania: "mr",
+  Mauritius: "mu",
+  Mexico: "mx",
+  Micronesia: "fm",
+  Moldova: "md",
+  Monaco: "mc",
+  Mongolia: "mn",
+  Montenegro: "me",
+  Morocco: "ma",
+  Mozambique: "mz",
+  Myanmar: "mm",
+  Namibia: "na",
+  Nauru: "nr",
+  Nepal: "np",
+  Netherlands: "nl",
+  "New Zealand": "nz",
+  Nicaragua: "ni",
+  Niger: "ne",
+  Nigeria: "ng",
+  "North Korea": "kp",
+  "North Macedonia": "mk",
+  Norway: "no",
+  Oman: "om",
+  Pakistan: "pk",
+  Palau: "pw",
+  Palestine: "ps",
+  Panama: "pa",
+  "Papua New Guinea": "pg",
+  Paraguay: "py",
+  Peru: "pe",
+  Philippines: "ph",
+  Poland: "pl",
+  Portugal: "pt",
+  Qatar: "qa",
+  Romania: "ro",
+  Russia: "ru",
+  Rwanda: "rw",
+  "Saint Kitts and Nevis": "kn",
+  "Saint Lucia": "lc",
+  "Saint Vincent and the Grenadines": "vc",
+  Samoa: "ws",
+  "San Marino": "sm",
+  "Sao Tome and Principe": "st",
+  "Saudi Arabia": "sa",
+  Senegal: "sn",
+  Serbia: "rs",
+  Seychelles: "sc",
+  "Sierra Leone": "sl",
+  Singapore: "sg",
+  Slovakia: "sk",
+  Slovenia: "si",
+  "Solomon Islands": "sb",
+  Somalia: "so",
+  "South Africa": "za",
+  "South Korea": "kr",
+  "South Sudan": "ss",
+  Spain: "es",
+  "Sri Lanka": "lk",
+  Sudan: "sd",
+  Suriname: "sr",
+  Sweden: "se",
+  Switzerland: "ch",
+  Syria: "sy",
+  Taiwan: "tw",
+  Tajikistan: "tj",
+  Tanzania: "tz",
+  Thailand: "th",
+  "Timor-Leste": "tl",
+  Togo: "tg",
+  Tonga: "to",
+  "Trinidad and Tobago": "tt",
+  Tunisia: "tn",
+  Turkey: "tr",
+  Turkmenistan: "tm",
+  Tuvalu: "tv",
+  Uganda: "ug",
+  Ukraine: "ua",
+  "United Arab Emirates": "ae",
+  "United Kingdom": "gb",
+  "United States": "us",
+  Uruguay: "uy",
+  Uzbekistan: "uz",
+  Vanuatu: "vu",
+  "Vatican City": "va",
+  Venezuela: "ve",
+  Vietnam: "vn",
+  Yemen: "ye",
+  Zambia: "zm",
+  Zimbabwe: "zw",
+};
+
+const getFlagUrl = (country) => {
+  if (!country) return null;
+  const code = countryNameToCode[country.trim()];
+  if (!code) return null;
+  // Use 24x18 for a small flag, as recommended by flagcdn.com
+  return `https://flagcdn.com/24x18/${code}.png`;
+};
 
 const styles = StyleSheet.create({
-    title: {
-        top: -55,
-        left: 150,
-        fontSize: 24,
-    },
-    image: {
-        height: 100,
-        left: 0,
-        paddingTop: 5,
-    },
-    action: {
-        top: -25,
-        backgroundColor: 'black',
-        color: 'white',
-        paddingBottom: 5,
-        paddingTop: 5,
-        paddingLeft: 10,
-    },
-    icon: {
-        position: 'absolute',
-        top: 10,
-        left: 10,
-        color: 'white',
-        backgroundColor: 'rgba(255,255,255,0)'
-    },
+  card: {
+    margin: 16,
+    backgroundColor: "#fff",
+    borderRadius: 16,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 5,
+    paddingBottom: 16,
+    overflow: "hidden",
+  },
+  image: {
+    height: 120,
+    width: "100%",
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+  },
+  icon: {
+    position: "absolute",
+    top: 20,
+    left: 20,
+    color: "#4db6ac",
+    backgroundColor: "rgba(255,255,255,0.8)",
+    borderRadius: 50,
+    padding: 8,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: "bold",
+    marginTop: 16,
+    marginLeft: 20,
+    color: "#333",
+  },
+  nameContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: 20,
+    marginTop: 8,
+  },
+  flag: {
+    width: 24,
+    height: 18,
+    borderRadius: 4,
+    marginRight: 8,
+    backgroundColor: "#eee",
+  },
+  nameText: {
+    backgroundColor: "#4db6ac",
+    color: "white",
+    borderRadius: 8,
+    paddingVertical: 4,
+    paddingHorizontal: 12,
+    fontSize: 16,
+    overflow: "hidden",
+  },
 });
 
-const CompanyItem = (props) => {
-    return (
-        <View>
-            <Image 
-                source={require('../images/background.jpg')}
-                style={styles.image}
-            />
-            <Icon 
-                name={'business'}
-                size={100}
-                style={styles.icon}
-            />
-            <Text style={styles.title}>{props.companies.company}</Text>
-            {props.companies.names.map((name) => {
-                return (
-                    <Text key={name._id} style={styles.action}>
-                        {name.firstName} {name.lastName}
-                    </Text>
-                )
-            })}
-        </View>
-    )
-}
+const CompanyItem = ({ companies }) => (
+  <View style={styles.card}>
+    <Image
+      source={require("../images/background.jpg")}
+      style={styles.image}
+    />
+    <Icon
+      name={"business"}
+      size={60}
+      style={styles.icon}
+    />
+    <Text style={styles.title}>{companies.company}</Text>
+    {companies.names.map((name) => (
+      <View
+        key={name._id}
+        style={styles.nameContainer}
+      >
+        {getFlagUrl(name.country) && (
+          <Image
+            source={{ uri: getFlagUrl(name.country) }}
+            style={styles.flag}
+            resizeMode="cover"
+          />
+        )}
+        <Text style={styles.nameText}>
+          {name.firstName} {name.lastName}
+        </Text>
+      </View>
+    ))}
+  </View>
+);
 
 export default CompanyItem;

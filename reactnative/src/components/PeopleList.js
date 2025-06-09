@@ -1,51 +1,41 @@
-import React, { Component } from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
-import { connect } from 'react-redux';
-import PeopleItem from './PeopleItem';
-import PeopleDetail from './PeopleDetail';
-import { loadInitialContacts } from '../actions';
+import React, { useEffect } from "react";
+import { View, StyleSheet, FlatList } from "react-native";
+import { connect } from "react-redux";
+import PeopleItem from "./PeopleItem";
+import PeopleDetail from "./PeopleDetail";
+import { loadInitialContacts } from "../actions";
 
 const styles = StyleSheet.create({
-    container: {
-        paddingTop: 80,
-    }
+  container: {
+    flex: 1,
+    paddingTop: 40,
+    backgroundColor: "#f5f5f5",
+  },
 });
 
-class PeopleList extends Component {
-    componentDidMount() {
-        this.props.loadInitialContacts();
-    }
+const PeopleList = ({ people, detailView, loadInitialContacts }) => {
+  useEffect(() => {
+    loadInitialContacts();
+  }, []);
 
-    renderInitialView() {
-        if (this.props.detailView === true) {
-            return (
-                <PeopleDetail />
-            )
-        } else {
-            return (
-                <FlatList
-                    data={this.props.people}
-                    renderItem={({item}) => <PeopleItem people={item} />}
-                    keyExtractor={(item, index) => index.toString()}
-                />
-            )
-        }
-    }
+  return (
+    <View style={styles.container}>
+      {detailView ? (
+        <PeopleDetail />
+      ) : (
+        <FlatList
+          data={people}
+          renderItem={({ item }) => <PeopleItem people={item} />}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      )}
+    </View>
+  );
+};
 
-    render() {
-        return (
-           <View style={styles.container}>
-                {this.renderInitialView()}
-           </View>
-        )
-    }
-}
-
-const mapStateToProps = state => {
-    return {
-        people: state.people,
-        detailView: state.detailView,
-    }
-}
+const mapStateToProps = (state) => ({
+  people: state.people,
+  detailView: state.detailView,
+});
 
 export default connect(mapStateToProps, { loadInitialContacts })(PeopleList);
