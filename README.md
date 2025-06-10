@@ -12,7 +12,6 @@ This app is made for people who need a simple way to manage their work contacts,
 
 ## Screenshots
 
-```html
 <table>
   <tr>
     <td><img src="./screenshots/contacts.jpg" alt="Contact Grid View" width="300"/></td>
@@ -48,7 +47,6 @@ This app is made for people who need a simple way to manage their work contacts,
     </td>
   </tr>
 </table>
-```
 
 ### Walkthrough of our App
 
