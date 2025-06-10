@@ -14,7 +14,7 @@ This app is made for people who need a simple way to manage their work contacts,
 
 <table>
   <tr>
-    <td><img src="./screenshots/contacts.jpg" alt="Contact Grid View" width="500"/></td>
+    <td><img src="./screenshots/people.jpg" alt="Contact Grid View" width="500"/></td>
     <td>
       This screen shows the People tab of the app. Each contact is displayed in a card with their name and company clearly shown. The layout is scrollable, allowing users to quickly browse through all saved business contacts. At the bottom, there’s a navigation bar with three tabs: People, Add, and Company for easy access to different sections of the app.
     </td>
