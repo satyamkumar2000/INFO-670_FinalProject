@@ -14,7 +14,7 @@ This app is made for people who need a simple way to manage their work contacts,
 
 <table>
   <tr>
-    <td><img src="./screenshots/contacts.jpg" alt="Contact Grid View" width="300"/></td>
+    <td><img src="./screenshots/contacts.jpg" alt="Contact Grid View" width="500"/></td>
     <td>
       This screen shows the People tab of the app. Each contact is displayed in a card with their name and company clearly shown. The layout is scrollable, allowing users to quickly browse through all saved business contacts. At the bottom, there’s a navigation bar with three tabs: People, Add, and Company for easy access to different sections of the app.
     </td>
@@ -23,7 +23,7 @@ This app is made for people who need a simple way to manage their work contacts,
 
 <table>
   <tr>
-    <td><img src="./screenshots/add.jpg" alt="Contact Grid View" width="300"/></td>
+    <td><img src="./screenshots/add.jpg" alt="Contact Grid View" width="500"/></td>
     <td>
       This screen shows the Add tab, where users can enter a new business contact. The form includes fields for first name, last name, phone number, email, company, project, notes, and country. Required fields are marked with an asterisk (*). Once all necessary information is filled out, users can tap the ADD button to save the contact. This form helps users quickly and easily organize key details for future reference.
     </td>
@@ -32,7 +32,7 @@ This app is made for people who need a simple way to manage their work contacts,
 
 <table>
   <tr>
-    <td><img src="./screenshots/contacts.jpg" alt="Contact Grid View" width="300"/></td>
+    <td><img src="./screenshots/contacts.jpg" alt="Contact Grid View" width="500"/></td>
     <td>
      This screen shows the Company tab of the app. It displays a list of companies, each represented by a card. Under each company name, the employees associated with that company are listed with their names in labeled badges. Each badge also includes the employee’s country flag for quick visual reference. This view helps users understand the structure of their contacts by grouping individuals under the organizations they belong to.
    </td>
@@ -41,7 +41,7 @@ This app is made for people who need a simple way to manage their work contacts,
 
 <table>
   <tr>
-    <td><img src="./screenshots/detailed.jpg" alt="Contact Grid View" width="300"/></td>
+    <td><img src="./screenshots/detailed.jpg" alt="Contact Grid View" width="500"/></td>
     <td>
     This screen shows the detailed view of a contact—in this case, Maya Thompson from BrightPath Solutions. It displays all essential information, including phone number, email, project name, and personal notes. At the top, there’s a close button to exit the view. Below the contact info, there are Edit and Delete options for managing the contact. At the bottom, users can quickly choose to Call, Email, or send an SMS using large, clearly labeled buttons. This layout makes it easy to both view and take action on a contact with minimal effort. 
     </td>
