@@ -1,5 +1,11 @@
 # Link Up
 
+## Team members
+
+Vishal Hagargundgi
+Satyam Kumar
+Manish Chandrashekar
+
 ## Design and Purpose
 
 This app is a basic CRM (Customer Relationship Management) tool for keeping track of business contacts. It works like a contact manager, but with extra features for organizing work-related information.
